@@ -8,12 +8,18 @@
   "repositories": [
     {
       "type": "vcs",
+      "url": "https://github.com/Icinga/ipl-stdlib",
+      "no-api": true
+    },
+    {
+      "type": "vcs",
       "url": "https://github.com/Icinga/ipl-html",
       "no-api": true
     }
   ],
   "require": {
     "php": ">=5.6",
+    "ipl/stdlib": "dev-master",
     "ipl/html": "dev-master"
   },
   "suggest": {
