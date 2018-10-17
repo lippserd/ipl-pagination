@@ -294,20 +294,24 @@ class Paginator extends BaseHtmlElement
         $totalCount = $this->getTotalCount();
 
         // Accessibility info
-        $this->add(Html::tag('h2', $this->translate('Pagination'), [
-            'id'        => 'pagination',
-            'class'     => 'sr-only',
-            'tabindex'  => '-1'
-        ]));
+        $this->add(Html::tag(
+            'h2',
+            [
+                'id'       => 'pagination',
+                'class'    => 'sr-only',
+                'tabindex' => '-1'
+            ],
+            $this->translate('Pagination')
+        ));
 
-        $paginator = Html::tag('ul', null, ['class' => 'tab-nav nav']);
+        $paginator = Html::tag('ul', ['class' => 'tab-nav nav']);
 
         $this->add($paginator);
 
-        $prevIcon = Html::tag('i', null, ['class' => 'icon-angle-double-left']);
+        $prevIcon = Html::tag('i', ['class' => 'icon-angle-double-left']);
 
         if ($currentPageNumber > 1) {
-            $prevItem = Html::tag('li', null, ['class' => 'previous-page nav-item']);
+            $prevItem = Html::tag('li', ['class' => 'previous-page nav-item']);
 
             $label = sprintf(
                 $this->translate('Show rows %u to %u of %u'),
@@ -316,20 +320,23 @@ class Paginator extends BaseHtmlElement
                 $totalCount
             );
 
-            $prevItem->add(Html::tag('a', $prevIcon, [
-                'title'         => $label,
-                'href'          => $this->createUrl($currentPageNumber - 1),
-                'arial-label'   => $label
-            ]));
+            $prevItem->add(Html::tag(
+                'a',
+                [
+                    'title'       => $label,
+                    'href'        => $this->createUrl($currentPageNumber - 1),
+                    'arial-label' => $label
+                ],
+                $prevIcon
+            ));
         } else {
             $prevItem = Html::tag(
                 'li',
-                null,
                 ['class' => 'previous-page nav-item disabled', 'aria-hidden' => true]
             );
 
             $prevItem->add([
-                Html::tag('span', $this->translate('Previous page'), ['class' => 'sr-only']),
+                Html::tag('span', ['class' => 'sr-only'], $this->translate('Previous page')),
                 $prevIcon
             ]);
         }
@@ -348,18 +355,18 @@ class Paginator extends BaseHtmlElement
                 /** @noinspection PhpMissingBreakStatementInspection */
                 case $currentPageNumber:
                     $linkAttributes->add('class', 'active');
-                    // Move to default
+                // Move to default
                 default:
-                    $content = Html::tag('a', $page, ['href' => $this->createUrl($page)]);
+                    $content = Html::tag('a', ['href' => $this->createUrl($page)], $page);
             }
 
-            $paginator->add(Html::tag('li', $content, $linkAttributes));
+            $paginator->add(Html::tag('li', $linkAttributes, $content));
         }
 
-        $nextIcon = Html::tag('i', null, ['class' => 'icon-angle-double-right']);
+        $nextIcon = Html::tag('i', ['class' => 'icon-angle-double-right']);
 
         if ($currentPageNumber < $pageCount) {
-            $nextItem = Html::tag('li', null, ['class' => 'next-page nav-item']);
+            $nextItem = Html::tag('li', ['class' => 'next-page nav-item']);
 
             $label = sprintf(
                 $this->translate('Show rows %u to %u of %u'),
@@ -368,16 +375,20 @@ class Paginator extends BaseHtmlElement
                 $totalCount
             );
 
-            $nextItem->add(Html::tag('a', $nextIcon, [
-                'title'         => $label,
-                'href'          => $this->createUrl($currentPageNumber + 1),
-                'arial-label'   => $label
-            ]));
+            $nextItem->add(Html::tag(
+                'a',
+                [
+                    'title'       => $label,
+                    'href'        => $this->createUrl($currentPageNumber + 1),
+                    'arial-label' => $label
+                ],
+                $nextIcon
+            ));
         } else {
-            $nextItem = Html::tag('li', null, ['class' => 'next-page nav-item disabled', 'aria-hidden' => true]);
+            $nextItem = Html::tag('li', ['class' => 'next-page nav-item disabled', 'aria-hidden' => true]);
 
             $nextItem->add([
-                Html::tag('span', $this->translate('Next page'), ['class' => 'sr-only']),
+                Html::tag('span', ['class' => 'sr-only'], $this->translate('Next page')),
                 $nextIcon
             ]);
         }
